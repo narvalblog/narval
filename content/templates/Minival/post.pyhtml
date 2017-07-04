@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{=blog.lang=}">
+	{==blog.viewHead('', '', post)==}
+	<body>
+		<div class="container">
+			{==blog.viewHeader()==}
+			<article itemscope itemtype="http://schema.org/BlogPosting">
+				<header><h1>{==post.title==}</h1></header>
+				<time itemprop="dateCreated" datetime="{=post.date=}">{=blog.convertDate(post.date, "%d %B %Y")=}</time>
+				{==blog.viewCategories(post.categories)==}
+				:: if post.introduction != '':
+				<div itemprop="about">{==post.introduction==}</div>
+				:: #endif
+				<div class="content">{==post.content==}</div>
+			</article>
+			:: if blog.disqus != '':
+			<div id="disqus_thread"></div>
+			<script>
+				var disqus_config = function () {
+					this.page.url = "{=blog.url=}/{=post.slug=}.html";
+					this.page.identifier = "{=post.date=}";
+				};
+				(function() {  // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = '//{=blog.disqus=}.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by <em>Disqus</em>.</a></noscript>
+			:: #endif
+			<a class="btNav" href="{=blog.url=}">←&nbsp;Accueil</a>
+			{==blog.viewFooter()==}
+		</div>
+	</body>
+</html>

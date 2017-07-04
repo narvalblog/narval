@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang={=blog.lang=}>
+	{==blog.viewHead()==}
+	<body>
+		<div class="container">
+			{==blog.viewHeader()==}
+			<main>
+				<h1 class=postTitle>Archives</h1>
+				<div class=postContent>
+					:: prevYear, prevMonth = '', ''
+					:: for p in blog.posts.list:
+						:: date = p.date.split('-')
+						:: year, month, day = date[0], date[1], date[2]
+						:: if prevYear == '' or prevYear != year:
+						<h2>{=year=}</h2>
+						:: #endif
+						:: if prevMonth == '' or prevMonth != month:
+						<h3>{=blog.convertDate(p.date, "%B")=}</h3>
+						:: #endif
+						<p>
+							{=blog.convertDate(p.date, "%A %d")=}&nbsp: 
+							<a href="{=blog.url=}/{=p.slug=}.html">{==p.title==}</a>
+						</p>
+						:: prevYear, prevMonth = year, month
+					:: #endfor
+				</div>
+			</main>
+			<a class="btNav" href="{=blog.url=}">←&nbsp;Accueil</a>
+			{==blog.viewFooter()==}
+		</div>
+	</body>
+</html>

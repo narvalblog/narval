@@ -1,0 +1,29 @@
+<footer>
+	<p>
+		<small>
+			Blog de {=blog.author=} généré avec <em>Narval</em>.
+			<br>
+			Dernière modification le {=blog.convertDate(blog.modified, "%d %B %Y")=}.
+			<br>
+			Son contenu est mis à disposition sous différentes licences décrites <a href="{=blog.url=}/page1.html#droits">ici</a>.
+		</small>
+	</p>
+</footer>
+<script>
+	const
+		categories = document.getElementById('categories'),
+		pages = document.getElementById('pages'),
+		bt1 = document.getElementById('bt1'),
+		bt2 = document.getElementById('bt2')
+
+	bt1.addEventListener('click', function(e) {
+		e.preventDefault()
+		categories.style.display = 'block'
+		pages.style.display = 'none'
+	}, false)
+	bt2.addEventListener('click', function(e) {
+		e.preventDefault()
+		pages.style.display = 'block'
+		categories.style.display = 'none'
+	}, false)
+</script>
