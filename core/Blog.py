@@ -14,7 +14,6 @@ pp = [
 	tenjin.TrimPreprocessor(),			# trim spaces before tags
 	tenjin.PrefixedLinePreprocessor(),	# convert ':: ...' into '<?py ... ?>'
 ]
-engine = tenjin.Engine(path=['content/templates/Minimal/'], pp=pp)
 
 class Blog:
 	"""Classe représentant le blog."""
@@ -28,13 +27,13 @@ class Blog:
 		self._itemsbypage = 10
 		self._folder = "_Narval"
 		self._author = None
-		self._theme = "Minimal"
-		self._template = "Minimal"
+		self._theme = "Minival"
+		self._template = "Minival"
 		self._lang = "fr"
 		self._disqus = ""
 		self._posts = []
 		self._pages = []
-		self._engine = tenjin.Engine(path=['content/templates/Minimal/'], pp=pp)
+		self._engine = tenjin.Engine(path=['content/templates/Minival/'], pp=pp)
 
 	@property
 	def modified(self):
@@ -169,32 +168,32 @@ class Blog:
 
 	# parts
 	def viewHead(self, category='', author='', page=''):
-		return engine.render('head.pyhtml', {
+		return self.engine.render('head.pyhtml', {
 			'blog': self,
 			'category': category,
 			'author': author,
 			'page': page
 		})
 	def viewHeader(self):
-		return engine.render('header.pyhtml', {'blog': self})
+		return self.engine.render('header.pyhtml', {'blog': self})
 	def viewFooter(self):
-		return engine.render('footer.pyhtml', {'blog': self})
+		return self.engine.render('footer.pyhtml', {'blog': self})
 	def viewPaging(self, paging):
-		return engine.render('paging.pyhtml', {'blog': self, 'currentPage': paging[0], 'totalPages': paging[1]})
+		return self.engine.render('paging.pyhtml', {'blog': self, 'currentPage': paging[0], 'totalPages': paging[1]})
 	def viewCategories(self, categories):
-		return engine.render('categories.pyhtml', {'blog': self, 'categories': categories})
+		return self.engine.render('categories.pyhtml', {'blog': self, 'categories': categories})
 	# full
 	def viewRss(self):
-		return engine.render('rss.pyhtml', {'blog': self})
+		return self.engine.render('rss.pyhtml', {'blog': self})
 	def viewReadme(self):
-		return engine.render('readme.pyhtml', {'blog': self})
+		return self.engine.render('readme.pyhtml', {'blog': self})
 	def viewPosts(self, selection, paging, category='', author=''):
 		#blog, r, (i, nbRanges)
 		url = 'posts.pyhtml'
 		if category != '':
 			tmp = (category.template + '/') if category.template != '' else ''
 			if tmp != '': url = (tmp + url) if os.path.exists('content/templates/' + tmp + url) else url
-		return engine.render(url, {
+		return self.engine.render(url, {
 			'blog': self,
 			'selection': selection,
 			'paging': paging,
@@ -202,11 +201,11 @@ class Blog:
 			'author': author
 		})
 	def viewPost(self, post):
-		return engine.render('post.pyhtml', {'blog': self, 'post': post})
+		return self.engine.render('post.pyhtml', {'blog': self, 'post': post})
 	def viewPage(self, page):
-		return engine.render('page.pyhtml', {'blog': self, 'page': page})
+		return self.engine.render('page.pyhtml', {'blog': self, 'page': page})
 	def viewArchives(self):
-		return engine.render('archives.pyhtml', {'blog': self})
+		return self.engine.render('archives.pyhtml', {'blog': self})
 
 	# TOOLS
 	def _isoDate(self, str):
@@ -231,7 +230,6 @@ class Blog:
 	def convertDate(self, dateISO, format="%Y-%m-%d"):
 		# make your own format : https://docs.python.org/3/library/time.html#time.strftime
 		if self.lang == 'fr':
-			print('fr hihi')
 			locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
 		d = time.strptime(''.join(dateISO.rsplit(':', 1)), "%Y-%m-%dT%H:%M:%S.%f%z")
 		return time.strftime(format, d)
