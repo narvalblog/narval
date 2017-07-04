@@ -1,0 +1,12 @@
+Url:			https://yultivert.github.io
+Title:			Narval
+Subtitle:		Générateur de blog statique.
+Date:			2017-07-10
+Description:	Un super blog généré avec Narval.
+Itemsbypage:	4
+Folder:			_NARVAL
+Author:			Narval
+Theme:			Minimal
+Template:		Minimal
+Lang:			fr
+Disqus:			

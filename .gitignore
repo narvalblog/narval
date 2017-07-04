@@ -1,0 +1,9 @@
+# Build folders
+_NARVAL/
+_NARVAL-local/
+
+# Other
+__pycache__/
+*.cache
+cover.svg
+ROADMAP

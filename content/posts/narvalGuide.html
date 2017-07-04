@@ -1,0 +1,60 @@
+Title: Narval — Guide rapide
+Description: Guide de démarrage rapide de Narval, un générateur de blog statique.
+Categories: Documentation
+Date: 2017-07-01T19:12
+
+<h2>1. Prérequis</h2>
+
+<p>Disposer de&nbsp;:</p>
+<ul>
+	<li><a href="https://www.python.org/downloads/">Python 3</a> (ou version supérieure);</li>
+	<li><a href="https://pypi.python.org/pypi/Tenjin/">Tenjin</a>;</li>
+	<li><a href="https://git-scm.com/book/fr/v1/D%C3%A9marrage-rapide-Installation-de-Git">Git</a> (facultatif si tu souhaites ni installer <em>Narval</em> en ligne de commande, ni héberger ton futur blog gratuitement sur <em>Github Pages</em>).</li>
+</ul>
+<p>Pour installer <em>Tenjin</em>, tape dans un terminal&nbsp;:
+<pre><code>sudo easy_install Tenjin</code></pre>
+<p>Pour <strong>vérifier la présence</strong> de <em>Python</em> et <em>Git</em> dans ton ordinateur, tape dans un terminal&nbsp;:</p>
+<pre><code>python -V</code></pre>
+<p>Et&nbsp;:</p>
+<pre><code>git --version</code></pre>
+<p>Si un numéro de version apparaît pour chacune des commandes, c’est que tu peux passer à l’étape 2. Vérifie tout de même bien que la version de Python est supérieure ou égale à 3.</p>
+
+<h2>2. Télécharger Narval</h2>
+
+<p><em>Narval</em> peut s’installer de deux façons.</p>
+<p><strong>En lignes de commande&nbsp;:</strong></p>
+<pre><code>git clone https://github.com/yultivert/narval</code></pre>
+<p><strong>Depuis Github&nbsp;:</strong></p>
+<p>En suivant <a href="https://github.com/yultivert/narval">ce lien</a>, puis en cliquant sur «&nbsp;Clone or download&nbsp;» (bouton vert en haut de page) et enfin en cliquant sur «&nbsp;Download ZIP&nbsp;». Une fois l’archive téléchargée, il faut la décompresser.</p>
+
+<h2>3. Une petite démonstration&nbsp;?</h2>
+
+<p>Rien de tel que de générer le blog de démonstration soi-même pour comprendre comment ça marche. Ouvre le terminal à la racine du dossier téléchargé à l’étape 2 et tape ceci&nbsp;:</p>
+<pre><code>python3 build.py</code></pre>
+<p>Deux dossiers sont créés dans le dossier&nbsp;: <span class="path">_NARVAL/</span> et <span class="path">_NARVAL-local/</span>. Le premier contient le blog à publier sur Internet. Le second contient le blog consultable sur ton propre ordinateur. Ce bon narval, à travers le terminal, te propose de consulter le blog. Appuie sur la touche <kbd>Entrée</kbd>&nbsp;: le blog s’ouvre dans ton navigateur Internet.</p>
+
+<h2>4. Contenu et configuration</h2>
+
+<p>Singer&nbsp;! Le fonctionnement de <em>Narval</em>, grâce au blog de démonstration fourni, est aisément compréhensible par mimétisme. En somme, <strong>tu peux t’inspirer du blog de démonstration pour faire ton propre blog</strong>, sans lire la <a href="#">documentation complète</a>.</p><p>La plupart des fichiers du dossier <span class="path">content/</span> s'ouvre à l'aide d'un éditeur de texte pour pouvoir être lus correctement et modifiés. Le bloc-note par défaut peut suffire, mais je te recommande <em>Atom</em>, <em>Geany</em> ou encore <em>Brackets</em> qui sont tous les trois gratuits si tu ne sais pas lequel choisir.</p>
+<p>Le dossier <span class="path">content/</span> rassemble le contenu de ton blog. Regarde un peu dans les sous-dossiers, ouvre les fichiers et compare avec ce que tu vois dans ton navigateur (étape 3). Tu comprendras rapidement bien des choses. Tu peux alors commencer à créer des articles et tes pages, changer la configuration du blog, etc. Si tu es un peu perdu ou que tu veux aller plus loin, voici un petit récapitulatif de ce qui se trame dans le dossier <span class="path">content/</span>&nbsp;:</p>
+<ul>
+<li><span class="path">CONFIG</span> permet de **configurer le blog**. C’est dans ce fichier que l’on peut par exemple changer le titre, le thème ou le nombre d’articles par page, spécifier une URL, mettre un identifiant <em>Disqus</em> pour afficher un système de commentaires, etc;</li>
+<li><span class="path">attachments/</span> regroupe toutes les pièces jointes à tes articles et à tes pages (images, sons, vidéos, fichiers à télécharger, etc.);</li>
+<li><span class="path">pages/</span> regroupe les pages du blog et, optionnellement, un fichier <span class="path">CATEGORIES</span> et un fichier <span class="path">AUTHORS</span>;</li>
+<li><span class="path">posts/</span> regroupe les articles du blog et, optionnellement, un fichier <span class="path">CATEGORIES</span> et un fichier <span class="path">AUTHORS</span>;</li>
+<li><span class="path">templates/</span> regroupe tous les modèles de pages du blog. Ces modèles sont écrits avec un mélange de HTML et de Python. Ils permettent de définir ce que le blog affichera et comment;</li>
+<li><span class="path">themes/</span> contient le thème du blog, son style graphique (feuilles de styles CSS, images du thèmes, etc.);</li>
+</ul>
+<p>Les modèles de pages sont fortement liés à un thème. Les thèmes proposés avec <em>Narval</em> sont tous compatibles avec les fichiers du dossier <span class="path">templates/</span>.</p>
+<p>La <a href="#">documentation complète</a> peut également t’être utile.</p>
+
+<h2>5. Aller, vas-y&nbsp;!</h2>
+
+<p>Une fois ton blog bien configuré, bien beau et avec du contenu que tu trouves intéressant à partager, tu fais à nouveau un petit&nbsp;:</p>
+<pre><code>python3 build.py</code></pre>
+<p>Si des erreurs s’affichent, tu les corriges et tu réessayes. Sinon, tu peux y aller&nbsp;! Tu héberges où tu veux le contenu de <span class="path">_NARVAL/</span>, mais je te propose ci-dessous deux solutions gratuites qui me plaisent bien ♥.</p>
+<p><strong><em>Github Pages</em>&nbsp;:</strong></p>
+<p><em>Github</em> permet d’héberger gratuitement ses pages (et donc son blog). C’est là tout l’avantage du blog statique. <a href="https://pages.github.com/">Ce lien</a> (en anglais), permet de comprendre comment s'y prendre pour héberger son blog sur <em>Github Pages</em>. Je réaliserai prochainement un guide en français pour mettre son blog <em>Narval</em> sur <em>Github Pages</em>.</p>
+<p><strong>Peer To Peer (P2P)&nbsp;:</strong></p>
+<p>La solution idéale pour tendre vers <a href=#>un meilleur web</a>. Ton blog sera d’abord hébergé chez toi, puis chez toutes les personnes qui l’auront consulté. Ainsi, quand ton ordi sera éteint, les pages de ton blog resteront toujours consultables. De plus, l’espace de stockage de ton blog est sans limites. L’inconvénient actuel est que peu de monde navigue sur Internet en P2P, mais si personne ne s’y met, l’inconvénient persistera.</p>
+<p>Tout cela est encore expérimental, mais tu peux essayer <a href="https://zeronet.io/">ZeroNet</a> et <a href="https://beakerbrowser.com/">Beaker</a>.</p>

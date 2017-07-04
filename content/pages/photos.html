@@ -1,0 +1,41 @@
+Title: Photos
+Date: 2017-06-22 20:19
+Description: Les photos que je publie.
+Template: photos
+
+<!--"Narval FlickR" widget-->
+<div id=flickr class=flexbin></div>
+
+<script>
+	// https://www.flickr.com/services/api/explore/flickr.photosets.getPhotos
+	const
+		req = new XMLHttpRequest(),
+		photoset_id = '72157684845550845',
+		user_id = '155759198%40N08',
+		api_key = '4c66447d120483e2ebe3ddde79d1a2fd',
+		url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=' + api_key + '&photoset_id=' + photoset_id + '&user_id=' + user_id +'&format=json&nojsoncallback=1',
+		div = document.getElementById('flickr')
+
+	function createGallery(res) {
+		const photoset = res.photoset
+		let str = ''
+		if (photoset === undefined) {
+			div.innerHTML = 'Désolé, il y a un problème avec le chargement des photos. Il est toujours possible de les <a class=external href=https://www.flickr.com/photos/' + user_id + '/albums/' + photoset_id + '>voir sur <em>FlickR</em></a>.'
+		}
+
+		for (let p of photoset.photo) {
+			'https://c1.staticflickr.com/' + p.farm + '/' + p.server + '/' + p.id + '_' + p.secret + '.jpg'
+			str += '<a href="https://www.flickr.com/photos/' + user_id + '/' + p.id + '/in/album-' + photoset_id + '"><img src="https://c1.staticflickr.com/' + p.farm + '/' + p.server + '/' + p.id + '_' + p.secret + '.jpg"></a>'
+		}
+
+		str += '<a href="https://www.flickr.com/photos/' + user_id + '/albums/' + photoset_id + '"><img src="../assets/flickr.svg"></a>'
+
+		div.innerHTML = str
+	}
+
+	req.onreadystatechange = function() {
+		if (req.readyState === 4 && req.status === 200) createGallery(JSON.parse(req.responseText))
+	}
+	req.open('GET', url, true)
+	req.send(null)
+</script>
