@@ -1,16 +1,16 @@
-[English](#en) — [Français](#fr)
+# {=blog.title=}
 
-# <a name="en"></a>{=blog.title=}
+[Ce blog]({=blog.url=}) est généré avec [**_Narval_**](https://github.com/narvalblog/narval), un générateur de blog statique et opensource.
 
-[This blog]({=blog.url=}) is generated with [**_Narval_**](https://github.com/yultivert/narval), an opensource static blog generator. Last update the {=blog.modified=}.
-
-
+Dernière modification le **{=blog.convertDate(blog.modified, "%d %B %Y à %H:%M:%S")=}**.
 
 ## Posts ({=len(blog.posts.list)=})
 
 :: for p in blog.posts.list:
-- **{=blog.rmHTML(p.title, True)=}** / {=p.date=}
+- **{=blog.rmHTML(p.title, True)=}** / {=blog.convertDate(p.date, "%d %B %Y")=}
 :: #endfor
+
+Catégories : {=len(blog.posts.categories)=}
 
 ## Pages ({=len(blog.pages.list)=})
 
@@ -18,14 +18,4 @@
 - {=blog.rmHTML(p.title, True)=}
 :: #endfor
 
-## Posts categories ({=len(blog.posts.categories)=})
-
-:: for c in blog.posts.categories:
-- {=blog.rmHTML(c.title, True)=}
-:: #endfor
-
----
-
-# <a name="fr"></a>{=blog.title=}
-
-[Ce blogue]({=blog.url=}) est généré avec [**_Narval_**](https://github.com/yultivert/narval), un générateur de blog statique opensource. Dernière modification le {=blog.modified=}.
+Catégories : {=len(blog.pages.categories)=}
