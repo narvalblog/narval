@@ -68,6 +68,10 @@ a {
 	color: rgb(226, 41, 8);
 	text-decoration: none;
 }
+a.external {
+	background: url('img/externalLink.svg') no-repeat right;
+	padding-right: 15px;
+}
 a:hover {
 	text-decoration: underline;
 }
