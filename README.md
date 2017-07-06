@@ -4,7 +4,7 @@
 
 _Narval_ est un générateur de blog statique écrit en Python.
 
-![Logo de Narval](https://github.com/narvalblog/narval/blob/master/logo.svg)
+![Logo de Narval](https://github.com/narvalblog/narval/blob/master/logo.jpg)
 
 Son code est opensource et il est possible de participer à son développement.
 
