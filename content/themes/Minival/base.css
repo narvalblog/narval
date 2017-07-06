@@ -15,6 +15,12 @@ body {
 header h1 {
 	margin-bottom: 0;
 }
+header h1 a {
+	color: #000;
+}
+header h2 a {
+	color: #000;
+}
 header p {
 	margin-top: 0;
 	margin-bottom: 40px;
@@ -64,6 +70,8 @@ nav a:focus {
 article {
 	margin: 70px 0;
 }
+article { /* in lists and in complete post/page */ margin-bottom: 60px; counter-reset: footnotes; /* Initialiazing a `footnotes` counter on the wrapper */ }
+article :target { background: rgba(240, 146, 146, 0.25); color: #1f2832; border-radius: 4px; padding: 5px; }
 a {
 	color: rgb(226, 41, 8);
 	text-decoration: none;
@@ -72,9 +80,15 @@ a.external {
 	background: url('img/externalLink.svg') no-repeat right;
 	padding-right: 15px;
 }
+a.video {
+	padding-right: 15px;
+	background: url("img/videoLink.svg") no-repeat right;
+}
 a:hover {
 	text-decoration: underline;
 }
+blockquote { padding-left: 1em; border-left: 4px solid rgba(240, 146, 146, 0.25); }
+blockquote footer { background: rgba(240, 146, 146, 0.25); color: #1f2832; display: inline-block; padding: 5px 10px; border-radius: 5px; margin: 0; }
 kbd {
 	padding: 2px 5px;
 	border-radius: 3px;
@@ -105,3 +119,52 @@ code {
 	font-size: .75em;
 	font-weight: 700;
 }
+del { background: #f09292; text-decoration: none; color: #540e0e; padding: 1px 2px; border-radius: 4px; }
+
+figure {
+	background: #fff;
+	padding: 7px;
+	margin: 0;
+	border-radius: 5px;
+	box-shadow: 0 0 40px #ccc;
+}
+figure figcaption {
+	text-align: center;
+	padding: 10px 10px 0 10px;
+}
+
+hr { height: 40px; border: none; margin: 30px 0; background: url("img/hr.svg") no-repeat center; }
+
+img {
+	max-width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+
+ins { background: #95e18d; text-decoration: none; color: #275c29; padding: 1px 2px; border-radius: 4px; }
+
+mark { background: #21d0ff; }
+
+p { line-height: 1.3em; /* poem */ /* dialog */ }
+p.indented { text-indent: 1em; }
+p.disc_alpha { margin-bottom: 0; }
+p.disc_inter { margin-top: 0; margin-bottom: 0; }
+p.disc_omega { margin-top: 0; }
+
+sup a { text-decoration: none; }
+
+th { background: rgb(240, 146, 146); padding: 10px; }
+
+tr:nth-child(odd) { background: #eee; }
+tr:nth-child(even) { background: #ddd; }
+
+td {padding: 10px; text-align: center; }
+
+.footnotes { /* for footnotes */ margin-top: 50px; border-top: 1px solid; padding-top: 15px; font-size: .9em; }
+.footnotes ol { padding-left: 20px; }
+.footnotes li { padding: 5px 0; }
+.footnotes :target { background: rgba(240, 146, 146, 0.25); color: #1f2832; border-radius: 4px; padding: 5px; }
+
+[aria-describedby="footnote-label"] { /* for footnotes */ counter-increment: footnotes; text-decoration: none; color: inherit; }
+
+[aria-describedby="footnote-label"]::after { /* for footnotes */ content: counter(footnotes); vertical-align: super; font-size: 0.5em; margin-left: 2px; }

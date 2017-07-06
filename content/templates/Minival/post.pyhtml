@@ -29,7 +29,7 @@
 			</script>
 			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by <em>Disqus</em>.</a></noscript>
 			:: #endif
-			<a class="btNav" href="{=blog.url=}">←&nbsp;Accueil</a>
+			<a class="btNav" href="{=blog.url=}/index.html">←&nbsp;Accueil</a>
 			{==blog.viewFooter()==}
 		</div>
 	</body>

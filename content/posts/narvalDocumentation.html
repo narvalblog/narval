@@ -1,0 +1,243 @@
+Title: Documentation complète
+Description: Documentation de Narval, un générateur de blog statique.
+Categories: Documentation
+Date: 2017-07-06T22:32
+
+<p><em>Narval</em> est un générateur de blog statique écrit en Python. Il s’utilise avec le terminal et ne dispose que d’une seule ligne de commande permettant la génération d’un blog. Le principe est simple&nbsp;: </p>
+
+<ol>
+<li>tous les fichiers utiles au blog sont dans un dossier;</li>
+<li><em>Narval</em>, en une ligne de commande, convertit le contenu de ce dossier en blog;</li>
+<li>Ce blog est alors disponible en 2 versions (une pour en avoir un aperçu sur son ordinateur et une autre à mettre en ligne).</li>
+</ol>
+
+<p>Le guide rapide de <em>Narval</em> permet une bonne entrée en matière. Cette documentation est plus poussée et reprend en détail chaque point du guide rapide.</p>
+
+
+
+<h2 id="sommaire">Sommaire</h2>
+
+<ul>
+<li><a href="avantinstallation">Avant l’installation</a></li>
+<li><a href="installation">Installation</a> <br>
+<ul><li><a href="enlignedecommande">En ligne de commande</a></li>
+<li><a href="viagithub">Via le site <em>Github</em></a></li></ul></li>
+<li><a href="arbo">Arborescence du dossier</a> <br>
+<ul><li><a href="corebuild"><span class="path">core/</span> et <span class="path">build.py</span></a></li>
+<li><a href="content"><span class="path">content/</span></a> <br>
+<ul><li><a href="config"><span class="path">CONFIG</span></a></li>
+<li><a href="attachments"><span class="path">attachments/</span></a></li>
+<li><a href="pages"><span class="path">pages/</span></a></li>
+<li><a href="posts"><span class="path">posts/</span></a></li>
+<li><a href="templates"><span class="path">templates/</span></a></li>
+<li><a href="themes"><span class="path">themes/</span></a></li></ul></li></ul></li>
+</ul>
+
+<h2 id="avant-linstallation"><a id="avantinstallation"></a>Avant l’installation</h2>
+
+<p><em>Narval</em> est écrit en <strong>Python 3</strong>.</p>
+
+<p>Les modèles de pages (appelés <em>templates</em> dans la suite du document) sont écrits à l’aide de <strong><em>Tenjin</em></strong>, un moteur de templates qui combine de façon simple et claire du HTML et du Python. Il existe d’autres moteurs de templates comme le très connu <em>Jinja2</em> par exemple, mais <em>Tenjin</em> a l’avantage d’être le plus rapide à l’exécution.</p>
+
+<p><em>Narval</em> nécessite donc Python (version 3 ou supérieure). Cette commande dans un terminal permet de savoir s’il est déjà présent sur l’ordinateur&nbsp;:</p>
+
+<pre><code>python -V</code></pre>
+
+<p>Si un numéro de version apparaît et qu’il est supérieur à 3, c’est que c’est bon ! Sinon, il faut <a href="#">installer Python</a>.</p>
+
+<p><em>Tenjin</em> s’installe facilement avec cette ligne de commande&nbsp;:</p>
+
+<pre><code>sudo easy_install Tenjin</code></pre>
+
+<p>Si besoin, il est aussi possible de voir comment l’installer sur <a href="https://pypi.python.org/pypi/Tenjin/">ce site</a>.</p>
+
+<h2 id="installation"><a id="installation"></a>Installation</h2>
+
+<p><em>Narval</em> se trouve sur <em>Github</em> et peut s’installer de 2 façons.</p>
+
+<h3 id="en-ligne-de-commande"><a id="enlignedecommande"></a>En ligne de commande</h3>
+
+<p>Cette méthode nécessite <em>Git</em>. <em>Git</em> est également utile pour versionner un projet et le mettre en ligne sur <em>Github Pages</em> par exemple. <em>Github</em> permet d’héberger gratuitement son site statique et justement, <em>Narval</em> génère ce genre de site. Si <em>Git</em> est déjà installé, son numéro de version apparaît lorsque tu saisis dans un terminal&nbsp;:</p>
+
+<pre><code>git --version</code></pre>
+
+<p>Sinon, il te faudra l’installer. <a href="https://git-scm.com/book/fr/v1/D%C3%A9marrage-rapide-Installation-de-Git">Cette page</a> indique la marche à suivre.</p>
+
+<p>Une fois Git présent dans ton ordinateur, tu peux installer <em>Narval</em> avec cette ligne de commande&nbsp;:</p>
+
+<pre><code>git clone https://github.com/yultivert/narval
+</code></pre>
+
+<p>Cette commande télécharge <em>Narval</em> depuis <em>Github</em>. Le dossier reçu contient <em>Narval</em> (le générateur) ainsi que les dossiers et fichiers permettant de générer le blog de démonstration.</p>
+
+<h3 id="via-le-site-github"><a id="viagithub"></a>Via le site <em>Github</em></h3>
+
+<p>En suivant ce lien, puis en cliquant sur « Clone or download » (bouton vert en haut de page) et enfin en cliquant sur « Download ZIP ». Une fois l’archive téléchargée, il faut la décompresser. Le dossier contient <em>Narval</em> (le générateur) ainsi que les dossiers et fichiers permettant de générer le blog de démonstration.</p>
+
+<h2 id="arborescence-du-dossier"><a id="arbo"></a>Arborescence du dossier</h2>
+
+<p>Allons faire un tour dans le dossier <span class="path">narval/</span>. Il s’y trouve 2 dossiers (<span class="path">content/</span> et <span class="path">core/</span>) ainsi que quelques fichiers dont le seul qui est primordial au fonctionnement de <em>Narval</em> est <span class="path">build.py</span>.</p>
+
+<h3 id="core-et-buildpy"><a id="corebuild"></a><span class="path">core/</span> et <span class="path">build.py</span></h3>
+
+<p><span class="path">build.py</span> est le fichier principal du générateur de blog. Il fonctionne avec le dossier <span class="path">core/</span> qui contient le reste du programme. <span class="path">core/</span> et <span class="path">build.py</span> ne doivent pas subir de modifications personnelles afin que lorsque <em>Narval</em> est mis à jour sur <em>Github</em> et que tu souhaites migrer vers cette mise à jour, ton blog continue de fonctionner correctement. Si tu souhaites changer quelques chose à l’intérieur de ces fichiers et dossiers, tu peux participer au développement de <em>Narval</em> sur <em>Github</em> et proposer tes modifications.</p>
+
+<h3 id="content"><a id="content"></a><span class="path">content/</span></h3>
+
+<p>Le dossier <span class="path">content/</span> regroupe tous les fichiers et dossiers qui seront incorporés sous une forme ou une autre dans le blog final. Passons en revue chaque élément de <span class="path">content/</span>.</p>
+
+<h4 id="config"><a id="config"></a><span class="path">CONFIG</span></h4>
+
+<p>Contient la configuration du blog. Il s’agit d’un fichier composé de clefs et valeurs. La syntaxe nécessite un peu de rigueur&nbsp;:</p>
+
+<ul>
+<li>une ligne par clef: valeur;</li>
+<li>aucune ligne vide;</li>
+<li>la clef est séparée de la valeur par “:”;</li>
+<li>la valeur est toujours un texte non mis entre guillemets.</li>
+</ul>
+
+<p>Voici la liste des clefs acceptées par ce fichier&nbsp;:</p>
+
+<ul>
+<li><code>Url</code>&nbsp;: l’adresse où sera consultable le blog. Cette adresse est en général celle d’un serveur distant (sur Internet) et commence par <code>http://</code> (ou, de préférence, <code>https://</code>);</li>
+<li><code>Title</code>&nbsp;: Le titre du blog. Ne peut contenir de code HTML;</li>
+<li><code>Subtitle</code>&nbsp;: Le sous-titre du blog.</li>
+<li><a id="date"></a><code>Date</code>&nbsp;: La date à laquelle le blog voit le jour pour la première fois. Elle doit être au format ISO 8601. Voici quelques exemple de date acceptés&nbsp;: <code>2017-07-10</code> (pour le 10 juillet 2017), <code>2017-07-10 20:32</code> ou <code>2017-07-10T20:32</code> (pour le 10 juillet 2017 à 20h32). Il est également possible d’indiquer les secondes, les millisecondes et le fuseau horaire pour une date vraiment complète (mais peu utile). Par exemple&nbsp;: <code>2017-07-10T20:32:16.002645+02:00</code> pour la même date que précédemment, mais avec en plus 16 secondes, 002645 millisecondes et un fuseau horaire de + 2 heures par rapport au méridien de Greenwich;</li>
+<li><code>Description</code>&nbsp;: La description du blog. Ne peut contenir de code HTML;</li>
+<li><code>Itemsbypage</code>&nbsp;: Le nombre maximal d’articles à afficher par page;</li>
+<li><code>Folder</code>&nbsp;: Le nom du dossier où se situera le blog généré et à mettre en ligne (sans ‘/’);</li>
+<li><code>Author</code>&nbsp;: Le nom de l’auteur·e principal·e du blog;</li>
+<li><code>Theme</code>&nbsp;: Le nom du dossier qui contient le thème à afficher pour le blog (sans ‘/’);</li>
+<li><code>Template</code>&nbsp;: Le nom du dossier qui contient les templates à afficher pour le blog (sans ‘/’);</li>
+<li><code>Lang</code>&nbsp;: La langue principale du blog. Les seules valeurs possibles sont actuellement <code>en</code> (pour anglais) et <code>fr</code> (pour français);</li>
+<li><code>Disqus</code>&nbsp;: Un identifiant provenant de <em>Disqus</em> permet d’afficher un système de commentaire pour chaque article du blog.</li>
+</ul>
+
+<p>Une clef peut ne pas contenir de valeur. Une clef sans valeur peut être retirée du fichier. Quand une clef manque, <em>Narval</em> tente d’en définir une ou attribue à la clef une valeur par défaut. Par exemple, si la clef <code>Itemsbypage</code> est sans valeur ou manquante, par défaut, <code>Itemsbypage</code> vaudra <code>10</code> et un maximum de 10 articles par page sera affiché. Si une autre valeur que <code>en</code> ou <code>fr</code> est indiquée pour <code>Lang</code>, <code>fr</code> sera appliquée par défaut. Si une paire clef-valeur est manquante et indispensable, un message d’erreur indiquant le problème apparaîtra lors de la génération du blog.</p>
+
+<h4 id="attachments"><a id="attachments"></a><span class="path">attachments/</span></h4>
+
+<p>Ce dossier regroupe toutes les pièces jointes des articles et des pages du blog (images, sons, vidéos, fichiers à télécharger, etc.). Il peut être organisé en sous-dossiers si besoin.</p>
+
+<h4 id="pages"><a id="pages"></a><span class="path">pages/</span></h4>
+
+<p>Ce dossier regroupe les pages du blog et 2 fichiers optionnels&nbsp;: <span class="path">CATEGORIES</span> et <span class="path">AUTHORS</span>. Comme le fichier <span class="path">CONFIG</span>, ces fichiers contiennent des clefs et des valeurs. <span class="path">CATEGORIES</span> et <span class="path">AUTHORS</span> contiennent respectivement les différentes catégories et les différent·e·s auteur·e·s des pages, séparé·e·s d’une ligne vide.</p>
+
+<p>Voici la liste des clefs d’une catégorie figurant dans <strong><span class="path">CATEGORIES</span></strong>&nbsp;:</p>
+
+<ul>
+<li><code>Title</code>&nbsp;: Le titre de la catégorie;</li>
+<li><code>Slug</code>&nbsp;: Chemin d’accès, dans l’URL, permettant d’accéder à la liste des pages de la catégorie. Ce nom ne doit comporter des lettres non accentuées en minuscule, des chiffres, des tirets <code>-</code> et des underscores <code>_</code>;</li>
+<li><code>Description</code>&nbsp;: La description de la catégorie. Sans code HTML;</li>
+<li><code>Definition</code>&nbsp;: La définition de la catégorie. Peut contenir du code HTML;</li>
+<li><code>Template</code>&nbsp;: Indique le nom du dossier où se trouve des pages de templates particulières (elles remplacent des templates par défaut);</li>
+<li><code>Color</code>&nbsp;: Indique une couleur en un format accepté par le CSS (rgb, rgba, hexadécimal (avec le <code>#</code>) ou un nom existant). Dans les templates de <em>Minimal</em>, elle s’affiche dans le menu en haut de page et sous le titre de chaque page disposant d’une catégorie;</li>
+<li><code>Image</code>&nbsp;: L’image représentant la catégorie. Les templates et le thème de <em>Minimal</em> ne prennent pas en charge l’affichage de cette image. Mais il est possible de l’incorporer.</li>
+</ul>
+
+<p><strong><span class="path">AUTHORS</span></strong> accepte certaines des clefs de <span class="path">CATEGORIES</span>&nbsp;: <code>Slug</code>, <code>Description</code> et <code>Image</code>. Les autres clefs sont&nbsp;:</p>
+
+<ul>
+<li><code>Name</code>&nbsp;: le nom ou pseudonyme de la personne;</li>
+<li><code>Mail</code>&nbsp;: l’adresse de messagerie électronique de la personne;</li>
+<li><code>Website</code>&nbsp;: l’adresse URL du site web de la personne;</li>
+<li><code>Biography</code>&nbsp;: la biographie de la personne;</li>
+</ul>
+
+<p><strong>Tout autre fichier est considéré comme étant une page du blog.</strong> Chaque fichier porte le nom que l’on souhaite lui donner. L’extension peut être&nbsp;: </p>
+
+<ul>
+<li><span class="path">.htm</span>, <span class="path">.html</span>&nbsp;: si le contenu de la page est écrit en HTML;</li>
+<li><span class="path">.md</span>&nbsp;: si le contenu de la page est écrit en <a href="http://daringfireball.net/projects/markdown/">Markdown</a>.</li>
+</ul>
+
+<p>L’extension permet de convertir le contenu avec un langage de balisage particulier (ceux de la liste ci-dessus) en HTML (car l’affichage de texte formaté sur Internet se fait en HTML). Dans le cas d’un contenu en HTML, il n’y a pas conversion. Attention&nbsp;: si l’extension indique un contenu en HTML et qu’il n’en est rien, il n’y a pas conversion. <br>
+Si tu souhaites écrire tes pages avec du Markdown, il est nécessaire d’installer préalablement la dépendance nécessaire à la conversion&nbsp;:</p>
+
+<pre><code>pip install Markdown</code></pre>
+
+<p>Le contenu d’un fichier de type page se divise en 2 parties séparées par une ligne vide&nbsp;: des paires clef-valeur et le contenu de la page.</p>
+
+<p>Voici la liste des clefs&nbsp;:</p>
+
+<ul>
+<li><code>Title</code>&nbsp;: Le titre de la page (peut contenir du HTML);</li>
+<li><code>Date</code>&nbsp;: La date de publication ou de rédaction de la page au format ISO 8601 (pour les détails, <a href="#date">voir ici</a>);</li>
+<li><code>Modified</code>&nbsp;: La date à laquelle la page a été modifiée (format identique à la clef <code>Date</code>);</li>
+<li><code>Slug</code>&nbsp;: Chemin d’accès, dans l’URL, permettant d’accéder à la liste des pages de la catégorie. Ce nom ne doit comporter des lettres non accentuées en minuscule, des chiffres, des tirets <code>-</code> et des underscores <code>_</code>;</li>
+<li><code>Categories</code>&nbsp;: La ou les catégories à laquelle la page appartient. Elles sont à séparer par le signe <code>+</code>. Exemple&nbsp;: <code>Photographie + Art + Tutoriel</code>;</li>
+<li><code>Description</code>&nbsp;: La description de la page (sans HTML);</li>
+<li><code>Introduction</code>&nbsp;: Le texte qui introduit la page (peut contenir du HTML);</li>
+<li><code>Authors</code>&nbsp;: La ou les personnes ayant rédigées la page. Comme pour la clef <code>Categories</code>, le signe <code>+</code> sépare les auteur·e·s;</li>
+<li><code>Image</code>&nbsp;: L’image qui illustre la page;</li>
+<li><code>Template</code>&nbsp;: Le dossier du template à utiliser pour la page s’il est particulier;</li>
+<li><code>Status</code>&nbsp;: Le statut de la page qui peut être soit <code>Draft</code>, soit <code>Published</code>. La valeur par défaut est <code>Published</code> si cette clef est manquante ou sans valeur. <code>Draft</code> permet de ne pas référencer la page sur le blog bien qu’elle soit accessible à une URL particulière. Cela permet de partager une page à réviser avant publication.</li>
+</ul>
+
+
+
+<h4 id="posts"><a id="posts"></a><span class="path">posts/</span></h4>
+
+<p>Similaire au dossier <span class="path">pages/</span>, <span class="path">posts/</span> contient les articles du blog et 2 fichiers optionnels&nbsp;: <span class="path">CATEGORIES</span> et <span class="path">AUTHORS</span>. Un article dispose des mêmes clefs qu’une page, car tout simplement, il constitue également une page. Voir la section <a href="#pages"><span class="path">pages/</span></a>.</p>
+
+<h4 id="templates"><a id="templates"></a><span class="path">templates/</span></h4>
+
+<p>Ce dossier contient des templates organisés sous forme de dossiers. Les templates sont fortement liés au thèmes. Chaque template se compose de plusieurs fichiers portant l’extension <span class="path">.pyhtml</span>. Le moteur de template utilisé par <em>Narval</em> est <em>Tenjin</em>. <em>Tenjin</em> dispose de sa propre documentation. Le principal à retenir pour son utilisation avec <em>Narval</em> est mentionné ci-dessous&nbsp;:</p>
+
+<ul>
+<li>afficher une clef (sans HTML permis)&nbsp;: <code>{=blog.subtitle=}</code>;</li>
+<li>afficher une clef (avec HTML permis)&nbsp;: <code>{==blog.subtitle==}</code>;</li>
+<li>afficher une clef sans HTML&nbsp;: <code>{=blog.rmHTML(blog.subtitle)=}</code>;</li>
+</ul>
+
+<p><code>subtitle</code> est une clef qui se trouve dans le fichier <code>CONFIG</code>. En admettant que sa valeur soit <code>Mon &lt;strong&gt;super&lt;/strong&gt; blog</code>&nbsp;:</p>
+
+<ul>
+<li><code>{=blog.subtitle=}</code> donne&nbsp;:<code>Mon &lt;strong&gt;super&lt;/strong&gt; blog</code>;</li>
+<li><code>{==blog.subtitle==}</code> donne <code>Mon **super** blog</code>;</li>
+<li><code>{=blog.rmHTML(blog.subtitle)=}</code> donne <code>Mon super blog</code>.</li>
+</ul>
+
+<p>Pour faire une itération sur une liste d’article, il convient d’utiliser une boucle <code>for</code>. Cela se fait ainsi&nbsp;:</p>
+
+<pre><code>:: for post in blog.posts.list:
+    &lt;p&gt;{==post.title==}&lt;/p&gt;
+:: #endfor
+</code></pre>
+
+<p>Ce code affiche les titres de tous les articles du blog.</p>
+
+<p>Nous avons vu rapidement plus haut la fonction utilitaire <code>rmHTML()</code> qui supprime le code HTML d’un texte. <em>Narval</em> dispose d’une seconde fonction utilitaire <code>convertDate()</code> qui, comme son nom l’indique, permet de convertir une date. Voyons en détail ces deux fonctions simples&nbsp;:</p>
+
+<p><strong><code>rmHTML(text, md)</code></strong>&nbsp;:</p>
+
+<ul>
+<li><code>text</code> est une chaîne de caractère contenant du HTML;</li>
+<li><code>md</code> est un booléen. Si sa valeur est <code>True</code>, alors les marques HTML <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code> et <code>&lt;code&gt;</code> seront remplacées par leurs équivalents en Markdown. Cela est intéressant pour le fichier README que <em>Narval</em> génère (via <code>readme.pyhtml</code>). Par défaut <code>md</code> vaut <code>False</code>.</li>
+</ul>
+
+<p>Exemples&nbsp;:</p>
+
+<p><code>{=blog.rmHTML("Texte en &lt;strong&gt;gras&lt;/strong&gt;", True)=}</code> donne <code>Texte en **gras**</code>.</p>
+
+<p><code>{=blog.rmHTML("Texte en &lt;strong&gt;gras&lt;/strong&gt;")=}</code> donne <code>Texte en gras</code>.</p>
+
+<p><strong><code>convertDate(dateISO, format)</code></strong>&nbsp;:</p>
+
+<ul>
+<li><code>dateISO</code> est une date au format ISO 8601. Toutes les clefs <code>Date</code> et <code>Modified</code> sont de ce format;</li>
+<li><code>format</code> est une chaîne de caractère particulière qui permet d’afficher la date au format ISO sous la forme voulue. Pour voir comment former sa propre date, il suffit de regarder <a href="https://docs.python.org/3/library/time.html#time.strftime">cette documentation</a>.</li>
+</ul>
+
+<p>Exemples&nbsp;:</p>
+
+<p><code>{=blog.convertDate("2017-07-26", "%B %Y)=}</code> donne <code>Juillet 2017</code>.</p>
+
+<p>Les fonctions utilitaires s’utilisent avec les clefs de <em>Narval</em> (autrement, autant écrire directement ce que l’on souhaite). On aura donc&nbsp;:</p>
+
+<p><code>{=blog.convertDate(blog.modified, "%B %Y)=}</code> donne <code>Juillet 2017</code> si <code>blog.modified</code> vaut par exemple <code>2017-07-31</code>.</p>
+
+<h4 id="themes"><a id="themes"></a><span class="path">themes/</span></h4>
+
+<p>Ce dossier regroupe tous les thèmes du blog.</p>
