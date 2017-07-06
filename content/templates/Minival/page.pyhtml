@@ -8,7 +8,7 @@
 				<header><h1>{==page.title==}</h1></header>
 				<div class=content>{==page.content==}</div>
 			</article>
-			<a class="btNav" href="={blog.url}=">←&nbsp;Accueil</a>
+			<a class="btNav" href="{=blog.url=}/index.html">←&nbsp;Accueil</a>
 			{==blog.viewFooter()==}
 		</div>
 	</body>
