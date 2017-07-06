@@ -6,7 +6,7 @@
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
 
-import os, filecmp, re, random, webbrowser, shutil, time, sys
+import os, filecmp, re, random, webbrowser, shutil, time
 from pathlib import Path, PurePath
 from datetime import datetime, timezone
 from operator import itemgetter, attrgetter, methodcaller
@@ -17,7 +17,17 @@ from core.Author import Author
 from core.Category import Category
 from core.Page import Page
 from core.Pages import Pages
-from core.journal import niceprint
+from core.journal import Log
+
+dC = 'content/'
+dPo = 'posts/'
+dPa = 'pages/'
+dAt = 'attachments/'
+dTh = 'themes/'
+dTe = 'templates/'
+fCONF = 'CONFIG'
+fCATS = 'CATEGORIES'
+fAUTHORS = 'AUTHORS'
 
 def build(isLocal=False):
 
@@ -53,6 +63,8 @@ def build(isLocal=False):
 		return(arr)
 
 	def getInstancesOf(of, file, categories=[], authors=[]): # of = Category, Author, Blog or Page
+		if os.path.exists(file) == False and file != dC+dPo+fAUTHORS and file != dC+dPo+fCATS and file != dC+dPa+fAUTHORS and file != dC+dPa+fCATS:
+			Log.niceprint("Path `{}` doesn't exist.".format(file), "FAIL")
 		fileResult = readFile(file, True if of=='Page' else False)
 		arr, newCategories, newAuthors = [], [], []
 		if fileResult != []:
@@ -88,7 +100,7 @@ def build(isLocal=False):
 											isPresent = True
 											pageCategories.append(c)
 									if isPresent == False:
-										niceprint("Category `{}` (found in `{}`) is not presents in `CATEGORIES`".format(item, file), "INFO")
+										Log.niceprint("Category `{}` (found in `{}`) is not presents in `{}`.".format(item, file, fCATS), "INFO")
 										newCategory = Category()
 										newCategory.title = item
 										newCategories.append(newCategory)
@@ -105,7 +117,7 @@ def build(isLocal=False):
 											isPresent = True
 											pageAuthors.append(a)
 									if isPresent == False:
-										niceprint("Author `{}` (found in `{}`) is not presents in `AUTHORS`".format(item, file), "INFO")
+										Log.niceprint("Author `{}` (found in `{}`) is not presents in `{}`.".format(item, file, fAUTHORS), "INFO")
 										newAuthor = Author()
 										newAuthor.name = item
 										newAuthors.append(newAuthor)
@@ -116,17 +128,19 @@ def build(isLocal=False):
 							isFound = True
 							break
 					if isFound == False:
-						niceprint("Key `{}` is not recognized in {}".format(key, file), "WARN")
+						Log.niceprint("Key `{}` is not recognized in {}".format(key, file), "WARN")
 				arr.append(instance)
 		return [arr, newCategories, newAuthors] # retourner aussi newCategories et newAuthors
 
 	def getInstanceOfPages(path):
 		categoriesUsed, authorsUsed = [], []
-		categories = getInstancesOf('Category', path + 'CATEGORIES')[0]
-		authors = getInstancesOf('Author', path + 'AUTHORS')[0]
+		categories = getInstancesOf('Category', path + fCATS)[0]
+		authors = getInstancesOf('Author', path + fAUTHORS)[0]
 		plist = []
+		if os.path.exists(path) == False:
+			Log.niceprint("Path `{}` doesn't exist.".format(path), "FAIL")
 		for fileName in os.listdir(path):
-			if os.path.isfile(path + fileName) and fileName != 'CATEGORIES' and fileName != 'AUTHORS':
+			if os.path.isfile(path + fileName) and fileName != fCATS and fileName != fAUTHORS:
 				pageResult = getInstancesOf('Page', path + fileName, categories, authors)
 				page = pageResult[0][0] # le premier [0] indique le tableau d'instances, le second indique le 1er et seul élément de ce tableau : une instance de Page
 				categories += pageResult[1]
@@ -165,6 +179,8 @@ def build(isLocal=False):
 		return pages
 
 	def copyAll(src, dst):
+		if os.path.exists(src) == False:
+			Log.niceprint("Path `{}` doesn't exist.".format(src), "FAIL")
 		if os.path.isdir(dst) == False: os.mkdir(dst)
 		paths = PurePath(dst).parts
 		rootFolder = paths[0] # blog.folder (_NARVAL)
@@ -200,23 +216,23 @@ def build(isLocal=False):
 				if os.path.isfile(file) == False:
 					os.remove(p)
 
-	posts = getInstanceOfPages('content/posts/')
-	pages = getInstanceOfPages('content/pages/')
+	posts = getInstanceOfPages(dC+dPo)
+	pages = getInstanceOfPages(dC+dPa)
 
-	blog = getInstancesOf('Blog', 'content/CONFIG')[0][0]
+	blog = getInstancesOf('Blog', dC+fCONF)[0][0]
 	blog.posts = posts
 	blog.pages = pages
 
 	if isLocal == True:
 		blog.folder = blog.folder + '-local'
-		blog.url = os.path.abspath('') + '/' + blog.folder
+		blog.url = os.path.join(os.path.abspath(''), blog.folder)
 
 	### Build tree (folders & files)
 
 	# si le dossier du blog généré n'existe pas, on le crée
 	if os.path.isdir(blog.folder) == False: os.mkdir(blog.folder)
-	copyAll('content/themes/', blog.folder + '/themes/')
-	copyAll('content/attachments/', blog.folder + '/attachments/')
+	copyAll(dC+dTh, os.path.join(blog.folder, dTh))
+	copyAll(dC+dAt, os.path.join(blog.folder, dAt))
 
 	# Categories of posts
 	for c in blog.posts.categories:
@@ -286,4 +302,5 @@ def build(isLocal=False):
 		render.write(blog.viewArchives())
 
 build()
+Log.show = False
 build(True)

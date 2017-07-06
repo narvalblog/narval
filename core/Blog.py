@@ -10,6 +10,7 @@ import locale
 from datetime import datetime, timezone
 from tenjin.helpers import *
 from tenjin.html import *
+from core.journal import Log
 pp = [
 	tenjin.TrimPreprocessor(),			# trim spaces before tags
 	tenjin.PrefixedLinePreprocessor(),	# convert ':: ...' into '<?py ... ?>'
@@ -143,6 +144,9 @@ class Blog:
 
 	@template.setter
 	def template(self, value):
+		path = 'content/templates/' + value + '/'
+		if os.path.exists(path) == False:
+			Log.niceprint("Path `{}` doesn't exist.".format(path), "FAIL")
 		self._template = value
 		self._engine = tenjin.Engine(path=['content/templates/' + value + '/'], pp=pp)
 
