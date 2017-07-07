@@ -1,11 +1,9 @@
 <footer>
 	<p>
 		<small>
-			Blog de {=blog.author=} généré avec <em>Narval</em>.
+			Blog de {=blog.author=}, généré avec <em>Narval</em>.
 			<br>
 			Dernière modification le {=blog.convertDate(blog.modified, "%d %B %Y")=}.
-			<br>
-			Son contenu est mis à disposition sous différentes licences décrites <a href="{=blog.url=}/page1.html#droits">ici</a>.
 		</small>
 	</p>
 </footer>

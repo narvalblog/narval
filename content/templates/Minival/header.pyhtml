@@ -3,7 +3,7 @@
 	<p>{==blog.subtitle==}</p>
 	<nav>
 		<ul>
-			<a href="{==blog.url==}"><li>Accueil</li></a>
+			<a href="{==blog.url==}/index.html"><li>Accueil</li></a>
 			:: if len(blog.posts.categories) > 0:
 			<a href="#" id="bt1"><li class="menu withSubmenu">Categories</li></a>
 			:: #endif

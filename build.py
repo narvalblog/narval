@@ -201,24 +201,9 @@ def build(isLocal=False):
 						copyfile(p, file)
 				else:
 					copyfile(p, file)
-		# suppression des dossiers de la destination non présents dans la source
-		for p in Path().glob(dst + '**/*'):
-			if p.is_dir():
-				p1 = PurePath(p).parts
-				folder = os.path.join(src, '/'.join(p1[2:])) # 2 car src est un chemin de 2 dossiers
-				if os.path.isdir(folder) == False:
-					shutil.rmtree(p)
-		# suppression des fichiers de la destination non présents dans la source
-		for p in Path().glob(dst + '**/*'):
-			if p.is_file():
-				p1 = PurePath(p).parts
-				file = os.path.join(src, '/'.join(p1[2:])) # 2 car src est un chemin de 2 dossiers
-				if os.path.isfile(file) == False:
-					os.remove(p)
 
 	posts = getInstanceOfPages(dC+dPo)
 	pages = getInstanceOfPages(dC+dPa)
-
 	blog = getInstancesOf('Blog', dC+fCONF)[0][0]
 	blog.posts = posts
 	blog.pages = pages
@@ -227,17 +212,19 @@ def build(isLocal=False):
 		blog.folder = blog.folder + '-local'
 		blog.url = os.path.join(os.path.abspath(''), blog.folder)
 
+	# Suppression du dossier du blog généré avant de le recréer
+	shutil.rmtree(blog.folder)
+
 	### Build tree (folders & files)
 
-	# si le dossier du blog généré n'existe pas, on le crée
-	if os.path.isdir(blog.folder) == False: os.mkdir(blog.folder)
+	os.mkdir(blog.folder)
 	copyAll(dC+dTh, os.path.join(blog.folder, dTh))
 	copyAll(dC+dAt, os.path.join(blog.folder, dAt))
 
 	# Categories of posts
 	for c in blog.posts.categories:
 		path = os.path.join(blog.folder, c.slug)
-		if os.path.isdir(path) == False: os.mkdir(path)
+		os.mkdir(path)
 		postsFiltred = []
 		for p in blog.posts.list:
 			if c in p.categories: postsFiltred.append(p)
@@ -245,17 +232,17 @@ def build(isLocal=False):
 		i, nbRanges = 1, len(ranges)
 		for r in ranges:
 			if i == 1:
-				with open(path + '/index.html', 'w') as render:
+				with open(os.path.join(path, 'index.html'), 'w') as render:
 					render.write(blog.viewPosts(r, [i, nbRanges], c))
 			else:
-				with open(path + '/page' + str(i) + '.html', 'w') as render:
+				with open(os.path.join(path, 'page' + str(i) + '.html'), 'w') as render:
 					render.write(blog.viewPosts(r, [i, nbRanges], c))
 			i += 1
 
 	# Categories of pages
 	for c in blog.pages.categories:
 		path = os.path.join(blog.folder, c.slug)
-		if os.path.isdir(path) == False: os.mkdir(path)
+		os.mkdir(path)
 		pagesFiltred = []
 		for p in blog.pages.list:
 			if c in p.categories: pagesFiltred.append(p)
@@ -263,19 +250,19 @@ def build(isLocal=False):
 		i, ranges = 1, len(ranges)
 		for r in ranges:
 			if i == 1:
-				with open(path + '/index.html', 'w') as render:
+				with open(os.path.join(path, 'index.html'), 'w') as render:
 					render.write(blog.viewPages(r, [i, nbRanges], c))
 			else:
-				with open(path + '/page' + str(i) + '.html', 'w') as render:
+				with open(os.path.join(path, 'page' + str(i) + '.html'), 'w') as render:
 					render.write(blog.viewPages(r, [i, nbRanges], c))
 			i += 1
 
 	# RSS
-	with open(blog.folder + '/RSSfeed.xml', 'w') as render:
+	with open(os.path.join(blog.folder, 'RSSfeed.xml'), 'w') as render:
 		render.write(blog.viewRss())
 
 	# Readme
-	with open(blog.folder + '/README.md', 'w') as render:
+	with open(os.path.join(blog.folder, 'README.md'), 'w') as render:
 		render.write(blog.viewReadme())
 
 	# Posts
@@ -289,18 +276,27 @@ def build(isLocal=False):
 
 	# Post
 	for p in blog.posts.list:
-		with open(blog.folder + '/' + p.slug + '.html', 'w') as render:
+		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
 			render.write(blog.viewPost(p))
 
 	# Page
 	for p in blog.pages.list:
-		with open(blog.folder + '/' + p.slug + '.html', 'w') as render:
+		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
 			render.write(blog.viewPage(p))
 
 	# Archives
-	with open(blog.folder + '/archives.html', 'w') as render:
+	with open(os.path.join(blog.folder, 'archives.html'), 'w') as render:
 		render.write(blog.viewArchives())
 
+	return blog.folder
+
+startTime = time.time()
 build()
 Log.show = False
-build(True)
+path = build(True)
+Log.show = True
+Log.niceprint("Blog généré avec succés en {} secondes !".format(round(time.time() - startTime, 3)))
+
+res = input("Voir le blog local ? (O/n) ").lower()
+if res != 'n':
+	webbrowser.open(path + '/index.html', new=2)
