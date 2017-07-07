@@ -244,12 +244,19 @@ def build(isLocal=False):
 		blog.folder = blog.folder + '-local'
 		blog.url = os.path.join(os.path.abspath(''), blog.folder)
 
-	# Suppression du dossier du blog généré avant de le recréer
-	shutil.rmtree(blog.folder)
-
 	### Build tree (folders & files)
 
-	os.mkdir(blog.folder)
+	if os.path.isdir(blog.folder) == False:
+		os.mkdir(blog.folder)
+	else:
+		# Suppression du contenu (sauf le .git) du dossier du blog généré avant de tout recréer
+		for p in Path().glob(blog.folder + '/**/*'):
+			if p != blog.folder + '/.git':
+				if p.is_dir():
+					shutil.rmtree(p)
+				elif p.is_file():
+					os.remove(p)
+
 	copyAll(dC+dTh, os.path.join(blog.folder, dTh))
 	copyAll(dC+dAt, os.path.join(blog.folder, dAt))
 

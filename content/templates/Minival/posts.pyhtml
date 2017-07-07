@@ -18,7 +18,6 @@
 				<article itemscope itemtype="http://schema.org/BlogPosting">
 					<header>
 						<h2><a href="{=blog.url=}/{=p.slug=}.html">{==p.title==}</a></h2>
-						<a href="{=blog.url=}/{=p.slug=}.html" class="read"></a>
 					</header>
 					<div class="metas">
 						<time itemprop="dateCreated" datetime="{=p.date=}">{=blog.convertDate(p.date, "%d %B %Y")=}</time>

@@ -14,14 +14,28 @@
 		bt1 = document.getElementById('bt1'),
 		bt2 = document.getElementById('bt2')
 
-	bt1.addEventListener('click', function(e) {
-		e.preventDefault()
+	function showCategories() {
 		categories.style.display = 'block'
 		pages.style.display = 'none'
+	}
+	function showPages() {
+		pages.style.display = 'block'
+		categories.style.display = 'none'
+	}
+	bt1.addEventListener('click', function(e) {
+		e.preventDefault()
+		showCategories()
 	}, false)
 	bt2.addEventListener('click', function(e) {
 		e.preventDefault()
-		pages.style.display = 'block'
-		categories.style.display = 'none'
+		showPages()
+	}, false)
+	bt1.addEventListener('touchstart', function(e) {
+		e.preventDefault()
+		showCategories()
+	}, false)
+	bt2.addEventListener('touchstart', function(e) {
+		e.preventDefault()
+		showPages()
 	}, false)
 </script>

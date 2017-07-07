@@ -13,18 +13,18 @@
 			<a type="application/rss+xml" href="{=blog.url=}/RSSfeed.xml"><li>RSS</li></a>
 		</ul>
 		:: if len(blog.posts.categories) > 0:
-		<ul class="submenu" id="categories">
+		<ul class="submenu" id="categories">→
 			:: for c in blog.posts.categories:
-			<a href="{=blog.url=}/{=c.slug=}/index.html"><li style="background:{=c.color=};">{==c.title==}</li></a>
+			<a style="background:{=c.color=};" class="tag" href="{=blog.url=}/{=c.slug=}/index.html">{==c.title==}</a>
 			:: #endfor
 		</ul>
 		:: #endif
 		:: if len(blog.pages.list) > 0:
-		<ul class="submenu" id="pages">
+		<ul class="submenu" id="pages">→
 			:: for p in blog.pages.list:
-			<a href="{=blog.url=}/{=p.slug=}.html"><li>{==p.title==}</li></a>
+			<a class="tag" href="{=blog.url=}/{=p.slug=}.html">{==p.title==}</a>
 			:: #endfor
-			<a href="{=blog.url=}/archives.html"><li>Archives</li></a>
+			<a class="tag" href="{=blog.url=}/archives.html">Archives</a>
 		</ul>
 		:: #endif
 	</nav>

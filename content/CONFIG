@@ -1,12 +1,12 @@
-Url:			https://narvalblog.github.io
-Title:			Narval
-Subtitle:		Générateur de blog statique.
-Date:			2017-07-10
-Description:	Un super blog généré avec Narval.
-Itemsbypage:	4
-Folder:			_NARVAL
-Author:			Narval
-Theme:			Minival
-Template:		Minival
-Lang:			fr
-Disqus:			
+url:			https://narvalblog.github.io
+title:			Narval
+subtitle:		Générateur de blog statique.
+date:			2017-07-10
+description:	Un super blog généré avec Narval.
+itemsbypage:	4
+folder:			_NARVAL
+author:			Ench
+theme:			Minival
+template:		Minival
+lang:			fr
+disqus:			

@@ -6,8 +6,23 @@
 			{==blog.viewHeader()==}
 			<article itemscope itemtype="http://schema.org/BlogPosting">
 				<header><h1>{==post.title==}</h1></header>
-				<time itemprop="dateCreated" datetime="{=post.date=}">{=blog.convertDate(post.date, "%d %B %Y")=}</time>
-				{==blog.viewCategories(post.categories)==}
+				<div class="metas">
+					<time itemprop="dateCreated" datetime="{=post.date=}">{=blog.convertDate(post.date, "%d %B %Y")=}</time>
+					{==blog.viewCategories(post.categories)==}
+					:: if len(post.authors) > 0:
+					<span class="authors">Écrit par&nbsp;:
+					:: for id, a in enumerate(post.authors):
+					:: if id < len(post.authors) - 2:
+					{==a.name==},
+					:: elif id < len(post.authors) - 1:
+					{==a.name==}
+					:: else:
+					et {==a.name==}.
+					:: #endif
+					:: #endfor
+					</span>
+					:: #endif
+				</div>
 				:: if post.introduction != '':
 				<div itemprop="about">{==post.introduction==}</div>
 				:: #endif
