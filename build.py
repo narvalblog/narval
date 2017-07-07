@@ -5,7 +5,10 @@
 
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
-
+try:
+	import markdown
+except ImportError:
+	pass
 import os, filecmp, re, random, webbrowser, shutil, time
 from pathlib import Path, PurePath
 from datetime import datetime, timezone
@@ -65,6 +68,8 @@ def build(isLocal=False):
 	def getInstancesOf(of, file, categories=[], authors=[]): # of = Category, Author, Blog or Page
 		if os.path.exists(file) == False and file != dC+dPo+fAUTHORS and file != dC+dPo+fCATS and file != dC+dPa+fAUTHORS and file != dC+dPa+fCATS:
 			Log.niceprint("Path `{}` doesn't exist.".format(file), "FAIL")
+
+
 		fileResult = readFile(file, True if of=='Page' else False)
 		arr, newCategories, newAuthors = [], [], []
 		if fileResult != []:
@@ -129,6 +134,33 @@ def build(isLocal=False):
 							break
 					if isFound == False:
 						Log.niceprint("Key `{}` is not recognized in {}".format(key, file), "WARN")
+
+				# contrôle des clefs obligatoires
+				if of == 'Category':
+					if instance.title == None:
+						Log.niceprint("La clef `title` est manquante ou erronée dans `{}`".format(file), "FAIL")
+				elif of == 'Author':
+					if instance.name == None:
+						Log.niceprint("La clef `name` est manquante ou erronée dans `{}`".format(file), "FAIL")
+				elif of == 'Blog':
+					if instance.title == None:
+						Log.niceprint("La clef `title` est manquante ou erronée dans `{}`".format(file), "FAIL")
+					elif instance.date == None:
+						Log.niceprint("La clef `date` est manquante ou erronée dans `{}`".format(file), "FAIL")
+				elif of == 'Page':
+					if instance.date == None:
+						Log.niceprint("La clef `date` est manquante ou erronée dans `{}`".format(file), "FAIL")
+					elif instance.title == None:
+						Log.niceprint("La clef `title` est manquante ou erronée dans `{}`".format(file), "FAIL")
+					elif instance.content == None:
+						Log.niceprint("Le contenu est manquant dans `{}`".format(file), "FAIL")
+
+				if file.lower().endswith(('.md', '.markdown')):
+					try:
+						instance.content = markdown.markdown(instance.content)
+					except Exception:
+						niceprint("Le markdown du fichier `{}` ne peut être converti en HTML, car le module Markdown est manquant. La documentation (rubrique `pages/`) indique comment l'installer : https://narvalblog.github.io/documentation-complete.html#pagesFolder.".format(file), "WARN")
+
 				arr.append(instance)
 		return [arr, newCategories, newAuthors] # retourner aussi newCategories et newAuthors
 

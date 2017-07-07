@@ -1,10 +1,10 @@
-Title:			Divers
-Description:	Contient les articles n’appartenant à aucune des autres catégories.
-Definition:		<p>Contient les <strong>articles n’appartenant à aucune des autres catégories</strong>.</p>
-Template:		Divers
-Color:			rgb(233, 206, 206)
+title:			Divers
+description:	Contient les articles n’appartenant à aucune des autres catégories.
+definition:		<p>Contient les <strong>articles n’appartenant à aucune des autres catégories</strong>.</p>
+template:		Divers
+color:			rgb(233, 206, 206)
 
-Title:			Documentation
-Description:	Regroupe tout ce qui peut aider à créer son blog avec Narval.
-Definition:		<p>Regroupe tout ce qui peut aider à créer son blog avec <em>Narval</em>.</p>
-Color:			rgb(230, 210, 249)
+title:			Documentation
+description:	Regroupe tout ce qui peut aider à créer son blog avec Narval.
+definition:		<p>Regroupe tout ce qui peut aider à créer son blog avec <em>Narval</em>.</p>
+color:			rgb(230, 210, 249)

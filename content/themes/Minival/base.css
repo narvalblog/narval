@@ -70,8 +70,16 @@ nav a:focus {
 article {
 	margin: 70px 0;
 }
-article { /* in lists and in complete post/page */ margin-bottom: 60px; counter-reset: footnotes; /* Initialiazing a `footnotes` counter on the wrapper */ }
-article :target { background: rgba(240, 146, 146, 0.25); color: #1f2832; border-radius: 4px; padding: 5px; }
+article {
+	/* in lists and in complete post/page */
+	margin-bottom: 60px;
+	counter-reset: footnotes; /* Initialiazing a `footnotes` counter on the wrapper */
+}
+article :target {
+	background: rgba(240, 146, 146, 0.25);
+	color: #1f2832;
+	border-radius: 4px;
+	padding: 5px; }
 a {
 	color: rgb(226, 41, 8);
 	text-decoration: none;
@@ -87,8 +95,18 @@ a.video {
 a:hover {
 	text-decoration: underline;
 }
-blockquote { padding-left: 1em; border-left: 4px solid rgba(240, 146, 146, 0.25); }
-blockquote footer { background: rgba(240, 146, 146, 0.25); color: #1f2832; display: inline-block; padding: 5px 10px; border-radius: 5px; margin: 0; }
+blockquote {
+	padding-left: 1em;
+	border-left: 4px solid rgba(240, 146, 146, 0.25);
+}
+blockquote footer {
+	background: rgba(240, 146, 146, 0.25);
+	color: #1f2832;
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 5px;
+	margin: 0;
+}
 kbd {
 	padding: 2px 5px;
 	border-radius: 3px;
@@ -98,17 +116,22 @@ kbd {
 	margin: 0 5px;
 }
 pre {
-	color: #ccc;
-	background: #333;
+	color: rgb(21, 85, 180);
+	background: #fff;
 	padding: 5px 10px;
 	border-radius: 5px;
 	margin: 15px;
+	box-shadow: 0 0 10px #ccc;
+}
+pre code {
+	box-shadow: none;
 }
 code {
-	color: #ccc;
-	background: #333;
+	color: rgb(21, 85, 180);
+	background: #fff;
 	padding: 3px 6px;
 	border-radius: 5px;
+	box-shadow: 0 0 10px #ccc;
 }
 .path {
 	color: #000;
