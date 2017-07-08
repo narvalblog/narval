@@ -251,7 +251,9 @@ def build(isLocal=False):
 	else:
 		# Suppression du contenu (sauf le .git) du dossier du blog généré avant de tout recréer
 		for p in Path().glob(blog.folder + '/**/*'):
-			if p != blog.folder + '/.git':
+			p1 = PurePath(p).parts[1]
+			print(p1)
+			if p1 != '.git':
 				if p.is_dir():
 					shutil.rmtree(p)
 				elif p.is_file():
