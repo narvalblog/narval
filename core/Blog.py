@@ -146,7 +146,7 @@ class Blog:
 	def template(self, value):
 		path = 'content/templates/' + value + '/'
 		if os.path.exists(path) == False:
-			Log.niceprint("Path `{}` doesn't exist.".format(path), "FAIL")
+			Log.niceprint("Le chemin `{}` n'existe pas.".format(path), "FAIL")
 		self._template = value
 		self._engine = tenjin.Engine(path=['content/templates/' + value + '/'], pp=pp)
 

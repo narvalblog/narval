@@ -67,7 +67,7 @@ def build(isLocal=False):
 
 	def getInstancesOf(of, file, categories=[], authors=[]): # of = Category, Author, Blog or Page
 		if os.path.exists(file) == False and file != dC+dPo+fAUTHORS and file != dC+dPo+fCATS and file != dC+dPa+fAUTHORS and file != dC+dPa+fCATS:
-			Log.niceprint("Path `{}` doesn't exist.".format(file), "FAIL")
+			Log.niceprint("Le chemin `{}` n'existe pas.".format(file), "FAIL")
 
 
 		fileResult = readFile(file, True if of=='Page' else False)
@@ -105,7 +105,7 @@ def build(isLocal=False):
 											isPresent = True
 											pageCategories.append(c)
 									if isPresent == False:
-										Log.niceprint("Category `{}` (found in `{}`) is not presents in `{}`.".format(item, file, fCATS), "INFO")
+										Log.niceprint("La catégorie `{}` (présente dans `{}`) est manquante dans `{}`.".format(item, file, fCATS), "INFO")
 										newCategory = Category()
 										newCategory.title = item
 										newCategories.append(newCategory)
@@ -122,7 +122,7 @@ def build(isLocal=False):
 											isPresent = True
 											pageAuthors.append(a)
 									if isPresent == False:
-										Log.niceprint("Author `{}` (found in `{}`) is not presents in `{}`.".format(item, file, fAUTHORS), "INFO")
+										Log.niceprint("L'auteur·e `{}` (présent dans `{}`) est manquant·e dans `{}`.".format(item, file, fAUTHORS), "INFO")
 										newAuthor = Author()
 										newAuthor.name = item
 										newAuthors.append(newAuthor)
@@ -133,7 +133,7 @@ def build(isLocal=False):
 							isFound = True
 							break
 					if isFound == False:
-						Log.niceprint("Key `{}` is not recognized in {}".format(key, file), "WARN")
+						Log.niceprint("La clef `{}` n'est pas reconnue dans {}".format(key, file), "WARN")
 
 				# contrôle des clefs obligatoires
 				if of == 'Category':
@@ -170,7 +170,7 @@ def build(isLocal=False):
 		authors = getInstancesOf('Author', path + fAUTHORS)[0]
 		plist = []
 		if os.path.exists(path) == False:
-			Log.niceprint("Path `{}` doesn't exist.".format(path), "FAIL")
+			Log.niceprint("Le chemin `{}` n'existe pas.".format(path), "FAIL")
 		for fileName in os.listdir(path):
 			if os.path.isfile(path + fileName) and fileName != fCATS and fileName != fAUTHORS:
 				pageResult = getInstancesOf('Page', path + fileName, categories, authors)
@@ -212,7 +212,7 @@ def build(isLocal=False):
 
 	def copyAll(src, dst):
 		if os.path.exists(src) == False:
-			Log.niceprint("Path `{}` doesn't exist.".format(src), "FAIL")
+			Log.niceprint("Le chemin `{}` n'existe pas.".format(src), "FAIL")
 		if os.path.isdir(dst) == False: os.mkdir(dst)
 		paths = PurePath(dst).parts
 		rootFolder = paths[0] # blog.folder (_NARVAL)
