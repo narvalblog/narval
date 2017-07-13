@@ -13,7 +13,7 @@
 		:: for p in blog.posts.list:
 			<item>
 				<title>{=blog.rmHTML(p.title)=}</title>
-				<link>{=blog.url=}/posts/{=p.slug=}.html</link>
+				<link>{=blog.url=}/{=p.slug=}.html</link>
 				<description>{=p.description=}</description>
 			</item>
 		:: #endfor
