@@ -6,26 +6,76 @@
 			{==blog.viewHeader()==}
 			<main>
 				<h1 class=postTitle>Archives</h1>
-				<div class=postContent>
-					:: prevYear, prevMonth = '', ''
+				<div class="postContent archivesContent">
+					:: prevY, prevM, prevD, years = '', '', '', []
 					:: for p in blog.posts.list:
-						:: date = p.date.split('-')
-						:: year, month, day = date[0], date[1], date[2]
-						:: if prevYear == '' or prevYear != year:
-						<h2>{=year=}</h2>
+						:: y = p.date.split('-')[0]
+						:: if (y != prevY):
+							:: objY = {"year": y, "months": []}
+							:: for p1 in blog.posts.list:
+								:: y1 = p1.date.split('-')[0]
+								:: m = p1.date.split('-')[1]
+								:: if (y1 == y):
+									:: if (m != prevM):
+										:: objM = {"month": m, "days": []}
+										:: for p2 in blog.posts.list:
+											:: y2 = p2.date.split('-')[0]
+											:: m1 = p2.date.split('-')[1]
+											:: d = p2.date.split('-')[2]
+											:: if (y2 == y):
+												:: if (m1 == m):
+													:: if (d != prevD):
+														:: objD = {"day": d, "posts": []}
+														:: for p3 in blog.posts.list:
+															:: y3 = p3.date.split('-')[0]
+															:: m2 = p3.date.split('-')[1]
+															:: d1 = p3.date.split('-')[2]
+															:: if (y3 == y):
+																:: if (m2 == m):
+																	:: if (d1 == d):
+																		:: objD['posts'].append(p3)
+																	:: #endif
+																:: #endif
+															:: #endif
+														:: #endfor
+														:: objM['days'].append(objD)
+														:: prevD = d
+													:: #endif
+												:: #endif
+											:: #endif
+										:: #endfor
+										:: objY['months'].append(objM)
+										:: prevM = m
+									:: #endif
+								:: #endif
+							:: #endfor
+							:: years.append(objY)
+							:: prevY = y
 						:: #endif
-						:: if prevMonth == '' or prevMonth != month:
-						<h3>{=blog.convertDate(p.date, "%B")=}</h3>
-						:: #endif
-						<p>
-							{=blog.convertDate(p.date, "%A %d")=}&nbsp: 
-							<a href="{=blog.url=}/{=p.slug=}.html">{==p.title==}</a>
-						</p>
-						:: prevYear, prevMonth = year, month
+					:: #endfor
+					:: for y in years:
+						<h2>{=y['year']=}</h2>
+						:: for m in y['months']:
+							:: isoDate = blog._isoDate(y['year'] + '-' + m['month'] + '-25')
+							<h3 style="text-transform: capitalize">{=blog.convertDate(isoDate, "%B")=}</h3>
+							:: for d in m['days']:
+								:: isoDate1 = blog._isoDate(y['year'] + '-' + m['month'] + '-' + d['day'])
+								:: if len(d['posts']) > 1:
+									<p>{=blog.convertDate(isoDate1, "%A %d")=}&nbsp;:</p>
+									<ul>
+									:: for p in d['posts']:
+										<li><a href="{=blog.url=}/{=p.slug=}.html">{==p.title==}</a></li>
+									:: #endfor
+									</ul>
+								:: else:
+									<p>{=blog.convertDate(isoDate1, "%A %d")=}&nbsp;: <a href="{=blog.url=}/{=p.slug=}.html">{==d['posts'][0].title==}</a></p>
+								:: #endif
+							:: #endfor
+						:: #endfor
 					:: #endfor
 				</div>
 			</main>
-			<a class="btNav" href="{=blog.url=}">←&nbsp;Accueil</a>
+			<a class="btNav" href="{=blog.url=}/index.html">←&nbsp;Accueil</a>
 			{==blog.viewFooter()==}
 		</div>
 	</body>
