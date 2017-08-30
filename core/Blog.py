@@ -195,8 +195,9 @@ class Blog:
 		#blog, r, (i, nbRanges)
 		url = 'posts.pyhtml'
 		if category != '':
+			tmpBlog = (self.template + '/') if self.template != '' else ''
 			tmp = (category.template + '/') if category.template != '' else ''
-			if tmp != '': url = (tmp + url) if os.path.exists('content/templates/' + tmp + url) else url
+			if tmp != '': url = (tmp + url) if os.path.exists('content/templates/'+ tmpBlog + tmp + url) else url
 		return self.engine.render(url, {
 			'blog': self,
 			'selection': selection,
