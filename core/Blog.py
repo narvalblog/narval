@@ -34,6 +34,8 @@ class Blog:
 		self._disqus = ""
 		self._posts = []
 		self._pages = []
+		self._draftPosts = []
+		self._draftPages = []
 		self._engine = tenjin.Engine(path=['content/templates/Minival/'], pp=pp)
 
 	@property
@@ -95,6 +97,14 @@ class Blog:
 	@property
 	def pages(self):
 		return self._pages
+
+	@property
+	def draftPosts(self):
+		return self._draftPosts
+
+	@property
+	def draftPages(self):
+		return self._draftPages
 
 	@property
 	def engine(self):
@@ -166,6 +176,14 @@ class Blog:
 	@pages.setter
 	def pages(self, value):
 		self._pages = value
+
+	@draftPosts.setter
+	def draftPosts(self, value):
+		self._draftPosts = value
+
+	@draftPages.setter
+	def draftPages(self, value):
+		self._draftPages = value
 
 
 	# VIEWS

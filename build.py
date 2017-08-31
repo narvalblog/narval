@@ -24,7 +24,9 @@ from core.journal import Log
 
 dC = 'content/'
 dPo = 'posts/'
+dPoD = dPo + 'draft/'
 dPa = 'pages/'
+dPaD = dPa + 'draft/'
 dAt = 'attachments/'
 dTh = 'themes/'
 dTe = 'templates/'
@@ -66,7 +68,7 @@ def build(isLocal=False):
 		return(arr)
 
 	def getInstancesOf(of, file, categories=[], authors=[]): # of = Category, Author, Blog or Page
-		if os.path.exists(file) == False and file != dC+dPo+fAUTHORS and file != dC+dPo+fCATS and file != dC+dPa+fAUTHORS and file != dC+dPa+fCATS:
+		if os.path.exists(file) == False and file != dC+dPo+fAUTHORS and file != dC+dPo+fCATS and file != dC+dPa+fAUTHORS and file != dC+dPa+fCATS and file != dC+dPoD+fCATS and file != dC+dPaD+fCATS and file != dC+dPoD+fAUTHORS and file != dC+dPaD+fAUTHORS:
 			Log.niceprint("Le chemin `{}` n'existe pas.".format(file), "FAIL")
 
 
@@ -105,7 +107,8 @@ def build(isLocal=False):
 											isPresent = True
 											pageCategories.append(c)
 									if isPresent == False:
-										Log.niceprint("La catégorie `{}` (présente dans `{}`) est manquante dans `{}`.".format(item, file, fCATS), "INFO")
+										if re.search(r's/draft/',file) == False:
+											Log.niceprint("La catégorie `{}` (présente dans `{}`) est manquante dans `{}`.".format(item, file, fCATS), "INFO")
 										newCategory = Category()
 										newCategory.title = item
 										newCategories.append(newCategory)
@@ -122,7 +125,8 @@ def build(isLocal=False):
 											isPresent = True
 											pageAuthors.append(a)
 									if isPresent == False:
-										Log.niceprint("L'auteur·e `{}` (présent dans `{}`) est manquant·e dans `{}`.".format(item, file, fAUTHORS), "INFO")
+										if re.search(r's/draft/',file) == False:
+											Log.niceprint("L'auteur·e `{}` (présent dans `{}`) est manquant·e dans `{}`.".format(item, file, fAUTHORS), "INFO")
 										newAuthor = Author()
 										newAuthor.name = item
 										newAuthors.append(newAuthor)
@@ -235,10 +239,14 @@ def build(isLocal=False):
 					copyfile(p, file)
 
 	posts = getInstanceOfPages(dC+dPo)
+	draftPosts = getInstanceOfPages(dC+dPoD)
 	pages = getInstanceOfPages(dC+dPa)
+	draftPages = getInstanceOfPages(dC+dPaD)
 	blog = getInstancesOf('Blog', dC+fCONF)[0][0]
 	blog.posts = posts
+	blog.draftPosts = draftPosts
 	blog.pages = pages
+	blog.draftPages = draftPages
 
 	if isLocal == True:
 		blog.folder = blog.folder + '-local'
@@ -319,10 +327,22 @@ def build(isLocal=False):
 		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
 			render.write(blog.viewPost(p))
 
+	# Draft post
+	for p in blog.draftPosts.list:
+		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
+			render.write(blog.viewPost(p))
+			Log.niceprint('Post brouillon : ' + os.path.join(blog.url, p.slug + '.html'), "INFO")
+
 	# Page
 	for p in blog.pages.list:
 		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
 			render.write(blog.viewPage(p))
+
+	# Draft page
+	for p in blog.draftPages.list:
+		with open(os.path.join(blog.folder, p.slug + '.html'), 'w') as render:
+			render.write(blog.viewPage(p))
+			Log.niceprint('Page brouillon : ' + os.path.join(blog.url, p.slug + '.html'), "INFO")
 
 	# Archives
 	with open(os.path.join(blog.folder, 'archives.html'), 'w') as render:
