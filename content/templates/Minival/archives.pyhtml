@@ -21,7 +21,7 @@
 										:: for p2 in blog.posts.list:
 											:: y2 = p2.date.split('-')[0]
 											:: m1 = p2.date.split('-')[1]
-											:: d = p2.date.split('-')[2]
+											:: d = p2.date.split('-')[2][0:2]
 											:: if (y2 == y):
 												:: if (m1 == m):
 													:: if (d != prevD):
@@ -29,7 +29,7 @@
 														:: for p3 in blog.posts.list:
 															:: y3 = p3.date.split('-')[0]
 															:: m2 = p3.date.split('-')[1]
-															:: d1 = p3.date.split('-')[2]
+															:: d1 = p3.date.split('-')[2][0:2]
 															:: if (y3 == y):
 																:: if (m2 == m):
 																	:: if (d1 == d):
@@ -68,7 +68,7 @@
 									:: #endfor
 									</ul>
 								:: else:
-									<p>{=blog.convertDate(isoDate1, "%A %d")=}&nbsp;: <a href="{=blog.url=}/{=p.slug=}.html">{==d['posts'][0].title==}</a></p>
+									<p>{=blog.convertDate(isoDate1, "%A %d")=}&nbsp;: <a href="{=blog.url=}/{=d['posts'][0].slug=}.html">{==d['posts'][0].title==}</a></p>
 								:: #endif
 							:: #endfor
 						:: #endfor
