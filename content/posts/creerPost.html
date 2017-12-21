@@ -81,6 +81,7 @@ date: 2017-12-21T14:32
 
 	date111.value = [year111, month111, day111].join('-') + ' ' + [hour111, min111].join(':')
 	bt111.addEventListener('click', function() {
+		console.log(categories111)
 		result111.innerHTML = 'title: '+title111+'<br>'
 		result111.innerHTML += 'date: '+date111.value+'<br>'
 		if (slug111 !== '') result111.innerHTML += 'slug: '+slug111+'<br>'
