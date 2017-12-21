@@ -67,7 +67,7 @@ date: 2017-12-21T14:32
 		min111 = today111.getUTCMinutes(),
 
 		title111 = document.getElementById('title111').value.replace(/</g, '&lt;').replace(/>/g, '&gt;'),
-		date111 = document.getElementById('date111').value,
+		date111 = document.getElementById('date111'),
 		slug111 = document.getElementById('slug111').value,
 		categories111 = document.getElementById('categories111').value,
 		description111 = document.getElementById('description111').value,
@@ -81,9 +81,8 @@ date: 2017-12-21T14:32
 
 	date111.value = [year111, month111, day111].join('-') + ' ' + [hour111, min111].join(':')
 	bt111.addEventListener('click', function() {
-		console.log(content111, categories111)
 		result111.innerHTML = 'title: '+title111+'<br>'
-		result111.innerHTML += 'date: '+date111+'<br>'
+		result111.innerHTML += 'date: '+date111.value+'<br>'
 		if (slug111 !== '') result111.innerHTML += 'slug: '+slug111+'<br>'
 		result111.innerHTML += 'categories: '+categories111+'<br>'
 		if (description111 !== '') result111.innerHTML += 'description: '+description111+'<br>'
