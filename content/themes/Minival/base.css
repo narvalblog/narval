@@ -207,8 +207,3 @@ td {padding: 10px; text-align: center; }
 [aria-describedby="footnote-label"] { /* for footnotes */ counter-increment: footnotes; text-decoration: none; color: inherit; }
 
 [aria-describedby="footnote-label"]::after { /* for footnotes */ content: counter(footnotes); vertical-align: super; font-size: 0.5em; margin-left: 2px; }
-
-.myForm input[type="text"] {max-width: 600px; width:100%; padding: 5px 10px; border: 1px solid #666;}
-.myForm textarea {width: 100%; padding: 5px 10px; border: 1px solid #666;}
-.myForm .bt {display: inline-block; background: bisque; padding: 10px 20px; font-weight: bold; font-size: 1.3em; cursor: pointer;}
-.myForm .bt:hover {background: #000; color: bisque;}
