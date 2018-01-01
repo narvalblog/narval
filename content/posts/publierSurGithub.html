@@ -1,0 +1,46 @@
+title: Publier son blog sur Github
+description: Comment publier son blog Narval sur Github, pas à pas.
+categories: Documentation
+date: 2017-12-31T22:05
+slug: publier-github
+introduction: <p>Voyons ici comment mettre en ligne son blog <em>Narval</em> sur les serveurs de <em>Github</em>.</p>
+
+<h2>1. <em>Git</em></h2>
+
+<p><em>Github</em> fonctionne avec <em>Git</em> qui est un logiciel de gestion de versions décentralisé. Avec cet outil, il est possible de gérer facilement les versions d’un dossier et son contenu. Cela n’est pas très utile pour ton blog, mais <em>Github</em> est à la base fait pour les développeurs ayant besoin de ce genre d’outil. <em>Narval</em> ne permet d’ailleurs pas de gérer les versions de ton blog, puisqu’il écrase tous les fichiers à chaque fois que tu reconstruis ton blog avec la commande <code>python3 build.py</code>. Ce n’est pas un problème, car si tu souhaites versionner ton blog, il convient plutôt de le faire sur le dossier <span class="path">content/</span>, mais ne nous égarons pas.</p>
+<p>Tu as donc tout d’abord besoin de <em>Git</em>. Si tu l’as déjà, la commande <code>git --version</code> dans un terminal affichera le numéro de version. Sinon, <a href="https://git-scm.com/book/fr/v1/D%C3%A9marrage-rapide-Installation-de-Git">cette page</a> indique la marche à suivre pour l’installer.</p>
+
+<h2>2. <em>Github</em></h2>
+
+<h3>Inscription sur <em>Github</em></h3>
+<p>C’est ici que l’inscription se passe&nbsp;: <a href="https://github.com/">https://github.com/</a>.</p>
+<p>L’inscription est facile, mais il faut faire attention à une chose : <strong>le nom d’utilisateur choisi figurera dans l’adresse URL du blog</strong>(https://username.github.io). Choisis donc bien ton nom d’utilisateur. Il te sera demandé si tu veux un compte gratuit ou payant. Le compte gratuit est suffisant pour l’usage que tu en auras et, si besoin, tu pourras passer à un compte payant plus tard sans soucis.</p>
+<p><img src="attachments/github/1.png" alt="Page d’inscription sur Github."/></p>
+
+<h3>Création d’un nouveau dépôt</h3>
+<p>Une fois inscrit et connecté, tu crées un nouveau dépôt qui accueillera les fichiers et dossiers de ton blog. Pour ce faire, clique sur «&nbsp;Start a project&nbsp;» ou «&nbsp;New repository&nbsp;».</p>
+<p>Le nom du dépôt se compose de ton nom d’utilisateur suivi de «&nbsp;.github.io&nbsp;». Dans le champ «&nbsp;Repository name&nbsp;» indique donc «&nbsp;<em>username</em>.github.io&nbsp;».<p>
+<p>Voilà, tu peux alors laisser le reste tel quel et cliquer sur «&nbsp;Create repository&nbsp;». Facile&nbsp;!</p>
+<p><img src="attachments/github/2.png" alt="Création d’un dépôt sur Github."/></p>
+
+<h2>3. Blog</h2>
+
+<p>Dans le dossier <span class="path">content/</span> de ton blog se trouve le fichier <span class="path">CONFIG</span>. Pour la clef <code>url</code>, met la valeur <code>https://<em>username</em>.github.io</code> si ce n’est pas déjà fait.</p>
+<p>Ensuite, il faut générer le blog avec la commande <code>python3 build.py</code> (voir <a href="/documentation-complete.html">la documentation</a> si besoin).</p>
+<p>Enfin, il faut se placer dans le dossier du blog généré (pas le <span class="path">-local</span>, l’autre qui porte le même non, sans le suffixe «&nbsp;-local&nbsp;») et saisir plusieurs commandes dans le terminal&nbsp;:</p>
+<ol>
+	<li><code>git init</code>, qui permet d’initialiser <em>Git</em> dans le dossier du blog à mettre en ligne;</li>
+	<li><code>git add .</code>, pour prendre en charge tous les fichiers du blog dans le versionnage;</li>
+	<li><code>git commit -m "maj"</code>, pour réaliser une version avec un message à choisir (ici «&nbsp;maj&nbsp;», mais ce message n’a aucune importance dans notre cas);</li>
+	<li><code>git remote add origin https://github.com/<em>username</em>/<em>username</em>.github.io.git</code>, pour que les enregistrements se fassent au bon endroit sur <em>Github</em>;</li>
+	<li><code>git push -u origin master</code>, pour mettre en ligne la ou les versions créées précédemment.</li>
+</ol>
+<p>Suite à cette dernière commande, il te sera demandé ton nom d’utilisateur, puis ton mot de passe <em>Github</em>.</p>
+<p>Cette série de commande n’est pas à resaisir dans son intégralité à chaque fois qu’un nouvel article est à publier, car <em>Narval</em> conserve l’initialisation de <em>git</em> et est toujours synchronisé avec <em>Github</em> (à moins que tu aies supprimé le dossier généré manuellement, ce qui est déconseillé, car peu pratique). Du coup, pour chaque nouvel article, voici ce qu’il faut saisir dans le dossier fraîchement regénéré&nbsp;:</p>
+<ol>
+	<li><code>git add .</code>;</li>
+	<li><code>git commit -m "maj"</code>;</li>
+	<li><code>git push origin master</code>.</li>
+</ol>
+<p>Une prochaine mise à jour permettra la publication directe du blog, dès sa génération. Cela permettra de ne plus avoir à saisir ces 3 commandes dans le dossier généré.</p>
+<p>Félicitations, ton blog est en ligne&nbsp;!</p>
