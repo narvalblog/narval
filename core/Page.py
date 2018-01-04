@@ -92,7 +92,7 @@ class Page:
 
 	@modified.setter
 	def modified(self, value):
-		self._modified = value
+		self._modified = Blog._isoDate(self, value)
 
 	@categories.setter
 	def categories(self, value):
