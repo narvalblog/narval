@@ -21,6 +21,9 @@
 					</header>
 					<div class="metas">
 						<time itemprop="dateCreated" datetime="{=p.date=}">{=blog.convertDate(p.date, "%d %B %Y")=}</time>
+						:: if p.modified != '':
+						<span class="modified"> (modifié le {=blog.convertDate(p.modified, "%d %B %Y")=})</span>
+						:: #endif
 						{==blog.viewCategories(p.categories)==}
 						:: if blog.disqus != '':
 						<span itemprop="commentCount" class="disqus-comment-count countComments" data-disqus-identifier="{=p.date=}">...</span>

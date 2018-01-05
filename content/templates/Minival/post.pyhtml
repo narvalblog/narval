@@ -8,6 +8,9 @@
 				<header><h1>{==post.title==}</h1></header>
 				<div class="metas">
 					<time itemprop="dateCreated" datetime="{=post.date=}">{=blog.convertDate(post.date, "%d %B %Y")=}</time>
+					:: if post.modified != '':
+					<span class="modified"> (modifié le {=blog.convertDate(post.modified, "%d %B %Y")=})</span>
+					:: #endif
 					{==blog.viewCategories(post.categories)==}
 					:: if len(post.authors) > 0:
 					<span class="authors">Écrit par&nbsp;:
