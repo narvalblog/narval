@@ -1,7 +1,7 @@
 <footer>
 	<p>
 		<small>
-			Blog de {=blog.author=}, généré avec <em>Narval</em>.
+			Blog de {=blog.author=}, généré avec <em><a href="https://github.com/narvalblog/narval">Narval</a></em>.
 			<br>
 			Dernière modification le {=blog.convertDate(blog.modified, "%d %B %Y")=}.
 		</small>
