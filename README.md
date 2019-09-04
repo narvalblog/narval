@@ -1,9 +1,7 @@
-![enter image description here](https://img.shields.io/badge/version-0.0.5-orange.svg) ![enter image description here](https://img.shields.io/badge/morues-254-brightgreen.svg)  ![enter image description here](https://img.shields.io/badge/fl%C3%A9tans-4784-brightgreen.svg)  ![enter image description here](https://img.shields.io/badge/crevettes-51402-brightgreen.svg)
+**Avertissement : *Narval* n'est plus mis à jour. Il a été remplacé par *Blogo* (plus simple, plus performant). *Narval reste cependant utilisable et fonctionne correctement.**
 
 # *Narval*, générateur de blog
 
 _Narval_ est un générateur de blog statique écrit en Python.
-
-Son code est opensource et il est possible de participer à son développement.
 
 Sa **documentation** est disponible sur un blog généré avec lui-même à cette adresse : https://narvalblog.github.io/.
