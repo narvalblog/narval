@@ -1,4 +1,4 @@
-**Avertissement** : *Narval* n'est plus mis à jour. Il a été remplacé par *Blogo* (plus simple, plus performant). *Narval reste cependant utilisable et fonctionne correctement.
+**Avertissement** : *Narval* n'est plus mis à jour. Il a été remplacé par [*Blogo*](https://bitbucket.org/diatomee/blogo/src/master/) (plus simple, plus performant). *Narval reste cependant utilisable et fonctionne correctement.
 
 # *Narval*, générateur de blog
 
